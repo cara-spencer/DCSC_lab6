@@ -32,17 +32,16 @@ def doAdd(addr, debug=False):
         print(json.loads(response.text))
 
 def doDotProduct(addr, debug=False):
-    headers = {'content-type':'application.json'}
-    add_url=addr + "/api/dotproduct"
-    vector = collections.defaultdict(list)
-    for i in range(100):
-        vector["a"].append(random.random())
-        vector["b"].append(random.random())
-    vector_json=json.dumps(vector)
-    response = requests.post(add_url, data=vector_json, headers=headers)
+    vectors = {'a':[random.random() for _ in range(100)],'b':[random.random() for _ in range(100)]}
+    headers = {'content-type': 'application/json'}
+    dotproduct_url = addr + "/api/dotproduct"
+    response = requests.post(dotproduct_url, json=vectors, headers=headers)
     if debug:
+        # decode response
         print("Response is", response)
         print(json.loads(response.text))
+    pass
+
 def doJsonImage(addr, debug=True):
     headers = {'content-type': 'application/json'}
     img=open('Flatirons_Winter_Sunrise_edit_2.jpg','rb').read()
