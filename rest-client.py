@@ -7,6 +7,7 @@ import sys
 import base64
 import jsonpickle
 import random
+import collections
 
 def doRawImage(addr, debug=False):
     # prepare headers for http request
