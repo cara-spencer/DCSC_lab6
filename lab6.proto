@@ -1,0 +1,43 @@
+syntax ="proto3";
+
+package lab6Proto;
+
+message addMsg {
+  int32 a = 1;
+  int32 b = 2;
+}
+
+message rawImageMsg {
+   bytes img = 1;
+}
+
+message dotProductMsg {
+    repeated float a = 1;
+    repeated float b = 2;
+}
+
+message jsonImageMsg {
+    string img = 1;
+}
+#### replies 
+
+message addReply {
+    int32 sum = 1;
+}
+
+message dotProductReply {
+    float dotProduct = 1;
+}
+
+message imageReply {
+    int32 width = 1;
+    int32 height = 2;
+}
+
+// Interface exported by the server.
+service Lab6grpc {
+    rpc doAdd(addRequest) returns (addReply) {}
+    rpc doDotproduct(dotproductRequest) returns (dotProductReply) {}
+    rpc doRawimage(rawImageRequest) returns (imageReply) {}
+    rpc doJsonimage(jsonImageRequest) returns (imageReply) {}
+}
