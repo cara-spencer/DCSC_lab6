@@ -32,29 +32,27 @@ def doAdd(addr, debug=False):
 
 
 def doDotProduct(addr, debug=False):
-    headers = {'content-type':'application.json'}
-    add_url=addr + "/api/dotproduct"
-    vector = collections.defaultdict(list)
-    for i in range(100):
-        vector["a"].append(random.random())
-        vector["b"].append(random.random())
-    vector_json=json.dumps(vector)
-    response = requests.post(add_url, data=vector_json, headers=headers)
-    if debug:
-        print("Response is", response)
-        print(json.loads(response.text))
-
-
-def doJsonImage(addr, debug=True):
+    vectors = {'a':[random.random() for _ in range(100)],'b':[random.random() for _ in range(100)]}
     headers = {'content-type': 'application/json'}
-    img=open('Flatirons_Winter_Sunrise_edit_2.jpg','rb').read()
-    img_string=base64.b64encode(img)
-    image_url=addr + '/api/jsonimage'
-    response= requests.post(image_url, data=img_string, headers=headers)
+    dotproduct_url = addr + "/api/dotproduct"
+    response = requests.post(dotproduct_url, json=vectors, headers=headers)
     if debug:
+        # decode response
         print("Response is", response)
         print(json.loads(response.text))
+    pass
 
+def doJsonImage(addr, debug=False):
+    with open("Flatirons_Winter_Sunrise_edit_2.jpg", "rb") as img:
+        jsonimage = {'img':base64.b64encode(img.read()).decode()}
+    headers = {'content-type': 'application/json'}
+    jsonimage_url = addr + "/api/jsonimage"
+    response = requests.post(jsonimage_url, json=jsonimage, headers=headers)
+    if debug:
+        # decode response
+        print("Response is", response)
+        print(json.loads(response.text))
+    pass
 
 if len(sys.argv) < 3:
     print(f"Usage: {sys.argv[0]} <server ip> <cmd> <reps>")
