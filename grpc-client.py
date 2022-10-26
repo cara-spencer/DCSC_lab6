@@ -26,22 +26,22 @@ for i in range(N):
     if operation == 'add':
         hreq = lab6_pb2.addRequest(a=5,b=10)
         reply = stub.doAdd(hreq)
-        # print(f'sum is {reply.c}')
+        print(f'sum is {reply.c}')
     if operation == 'dotproduct':
         hreq = lab6_pb2.dotproductRequest()
         hreq.a.extend([random.random() for _ in range(100)])
         hreq.b.extend([random.random() for _ in range(100)])
         reply = stub.doDotproduct(hreq)
-        # print(f'sum is {reply.c}')
+        print(f'sum is {reply.c}')
     if operation == 'rawimage':
         img = open('Flatirons_Winter_Sunrise_edit_2.jpg', 'rb').read()
         hreq = lab6_pb2.rawimageRequest(img=img)
         reply = stub.doRawimage(hreq)
-        # print(f'Width = {reply.width}, height = {reply.height}')
+        print(f'Width = {reply.width}, height = {reply.height}')
     if operation == 'jsonimage':
         img = base64.b64encode(open('Flatirons_Winter_Sunrise_edit_2.jpg', 'rb').read()).decode()
         hreq = lab6_pb2.jsonimageRequest(img=img)
         reply = stub.doJsonimage(hreq)
-        # print(f'Width = {reply.width}, height = {reply.height}')
+        print(f'Width = {reply.width}, height = {reply.height}')
 delta = ((time.perf_counter() - start)/N)*1000
 print(f"{operation}: Took", delta, "ms per operation")
