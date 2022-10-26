@@ -52,7 +52,6 @@ def doJsonImage(addr, debug=True):
     if debug:
         print("Response is", response)
         print(json.loads(response.text)
-
 if len(sys.argv) < 3:
     print(f"Usage: {sys.argv[0]} <server ip> <cmd> <reps>")
     print(f"where <cmd> is one of add, rawImage, sum or jsonImage")
