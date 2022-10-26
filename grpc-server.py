@@ -20,7 +20,7 @@ class Server(lab6_pb2_grpc.Lab6grpcServicer):
         for a,b in zip(request.a,request.b):
             c += a*b
         return lab6_pb2.dotproductReply(c = c)
-    
+      
     def doRawimage(self,request,context):
         print(f"Receive raw image")
         img = Image.open(io.BytesIO(request.img))
