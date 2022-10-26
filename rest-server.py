@@ -53,21 +53,19 @@ def rawimage():
 
 @app.route('/api/dotproduct', methods=['POST'])
 def dotproduct():
-    r=request
-    result=0
+    r = request
     try:
-        vector = json.loads(r.data)
-        a=vector["a"]
-        b=vector["b"]
-        for i in range(100):
-            results = result+(a[i]+b[i])
-        response ={
-            'c' : results
-        }
+        json = jsonpickle.decode(r.data)
+        c = 0
+        for a,b in zip(json['a'],json['b']):
+            c += a*b
+        response = {'dotproduct' : str( c )}
     except:
-        response ={'c' : 0}
+        response = {'dotproduct' : 'Something Wrong!'}
+    # encode response using jsonpickle
     response_pickled = jsonpickle.encode(response)
-    return Response (response=response_pickled, status=200, mimetype="application/json")
+
+    return Response(response=response_pickled, status=200, mimetype="application/json")
 
 # route http posts to this method
 @app.route('/api/jsonimage', methods=['POST'])
