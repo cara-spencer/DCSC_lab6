@@ -32,6 +32,7 @@ class Server(lab6_pb2_grpc.Lab6grpcServicer):
         return lab6_pb2.imageReply(width=img.size[0],height=img.size[1])
 
 def serve():    
+    print("hi im server")
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     lab6_pb2_grpc.add_Lab6grpcServicer_to_server(Server(), server)
     server.add_insecure_port('[::]:9999')
